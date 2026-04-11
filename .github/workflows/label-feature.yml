@@ -1,4 +1,4 @@
-name: Label Feature PR
+name: Label PR by Branch Prefix
 
 on:
   pull_request:
@@ -14,11 +14,15 @@ jobs:
         with:
           script: |
             const branch = context.payload.pull_request.head.ref;
-            if (!branch.startsWith('feat/')) return;
+            const labels = [];
+
+            if (branch.startsWith('feat/')) labels.push('enhancement');
+            if (branch.startsWith('fix/')) labels.push('bug');
+            if (labels.length === 0) return;
 
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
-              labels: ['enhancement'],
+              labels,
             });
