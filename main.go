@@ -10,7 +10,7 @@ import (
 	"github.com/k07g/mana/lib"
 )
 
-var version = "v0.1.0"
+var version = "dev"
 
 func main() {
 	showVersion := flag.Bool("version", false, "バージョンを表示する")
