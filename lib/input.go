@@ -11,7 +11,7 @@ import (
 	"github.com/k07g/mana/lib/weather"
 )
 
-func Input(ctx context.Context) error {
+func Input(ctx context.Context, version string) error {
 	scanner := bufio.NewScanner(os.Stdin)
 	done := make(chan struct{})
 
@@ -30,6 +30,10 @@ func Input(ctx context.Context) error {
 
 			if message, ok := greet.GreetHandler(input); ok {
 				Say(message)
+			}
+
+			if strings.Contains(input, "バージョン") {
+				Say("バージョン: " + version)
 			}
 
 			if strings.Contains(input, "今日の天気") {
