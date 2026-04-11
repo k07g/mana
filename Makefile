@@ -9,8 +9,14 @@ build: ## バイナリをビルドする
 run: ## アプリを実行する
 	go run .
 
-test: ## テストを実行する
+test: fmt vet ## テストを実行する
 	go test ./...
+
+fmt: ## コードをフォーマットする
+	gofmt -w .
+
+vet: ## 静的解析を実行する
+	go vet ./...
 
 clean: ## ビルド成果物を削除する
 	rm -f $(BINARY)
