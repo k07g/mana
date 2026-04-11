@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+var apiURL = "https://wttr.in/?format=j1&lang=ja"
+
 type response struct {
 	CurrentCondition []struct {
 		TempC  string `json:"temp_C"`
@@ -17,7 +19,7 @@ type response struct {
 }
 
 func Today(ctx context.Context) (string, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://wttr.in/?format=j1&lang=ja", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, apiURL, nil)
 	if err != nil {
 		return "", err
 	}
