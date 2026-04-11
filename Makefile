@@ -1,10 +1,11 @@
 BINARY := mana
 MODULE := github.com/k07g/mana
+VERSION := $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
 
-.PHONY: build run test clean help
+.PHONY: build run test clean install uninstall help
 
 build: ## バイナリをビルドする
-	go build -o $(BINARY) .
+	go build -ldflags "-X main.version=$(VERSION)" -o $(BINARY) .
 
 run: ## アプリを実行する
 	go run .
@@ -17,6 +18,12 @@ fmt: ## コードをフォーマットする
 
 vet: ## 静的解析を実行する
 	go vet ./...
+
+install: ## バイナリをインストールする
+	go install -ldflags "-X main.version=$(VERSION)" .
+
+uninstall: ## バイナリをアンインストールする
+	rm -f $(shell go env GOPATH)/bin/$(BINARY)
 
 clean: ## ビルド成果物を削除する
 	rm -f $(BINARY)
