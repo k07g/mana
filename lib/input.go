@@ -5,8 +5,10 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/k07g/mana/lib/greet"
+	"github.com/k07g/mana/lib/weather"
 )
 
 func Input(ctx context.Context) error {
@@ -28,6 +30,15 @@ func Input(ctx context.Context) error {
 
 			if message, ok := greet.GreetHandler(input); ok {
 				Say(message)
+			}
+
+			if strings.Contains(input, "今日の天気") {
+				msg, err := weather.Today(ctx)
+				if err != nil {
+					Say("天気情報の取得に失敗しました: " + err.Error())
+				} else {
+					Say(msg)
+				}
 			}
 
 			if input == "quit" ||
