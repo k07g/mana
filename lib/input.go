@@ -33,10 +33,10 @@ func Input(ctx context.Context, version string) error {
 			}
 
 			if strings.Contains(input, "バージョン") {
-					Say("バージョン: " + version)
-				}
+				Say("バージョン: " + version)
+			}
 
-				if strings.Contains(input, "今日の天気") {
+			if strings.Contains(input, "今日の天気") {
 				msg, err := weather.Today(ctx)
 				if err != nil {
 					Say("天気情報の取得に失敗しました: " + err.Error())
