@@ -9,10 +9,16 @@
 ## インストール
 
 ```bash
+go install github.com/k07g/mana@latest
+```
+
+または、リポジトリをクローンしてからビルドする場合:
+
+```bash
 make install
 ```
 
-`$(GOPATH)/bin` にバイナリがインストールされます。
+いずれも `$(GOPATH)/bin` にバイナリがインストールされます。
 
 ## アンインストール
 

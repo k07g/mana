@@ -20,7 +20,7 @@ vet: ## 静的解析を実行する
 	go vet ./...
 
 install: ## バイナリをインストールする
-	go install -ldflags "-X main.version=$(VERSION)" .
+	go install .
 
 uninstall: ## バイナリをアンインストールする
 	rm -f $(shell go env GOPATH)/bin/$(BINARY)
