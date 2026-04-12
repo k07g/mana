@@ -4,8 +4,8 @@ import "testing"
 
 func TestBedtimeMessage(t *testing.T) {
 	tests := []struct {
-		hour    int
-		wantOk  bool
+		hour   int
+		wantOk bool
 	}{
 		{hour: 22, wantOk: true},
 		{hour: 23, wantOk: true},
