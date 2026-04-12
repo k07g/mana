@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/k07g/mana/lib"
 )
@@ -26,6 +27,10 @@ func main() {
 	defer stop()
 
 	lib.Say("おはよー")
+
+	if msg, ok := lib.BedtimeMessage(time.Now().Hour()); ok {
+		lib.Say(msg)
+	}
 
 	if err := lib.Input(ctx, version); err != nil {
 		fmt.Println("入力処理に失敗しました:", err)
