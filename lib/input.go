@@ -36,7 +36,14 @@ func Input(ctx context.Context, version string) error {
 				Say("バージョン: " + version)
 			}
 
-			if strings.Contains(input, "今日の天気") {
+			if strings.Contains(input, "明日の天気") {
+				msg, err := weather.Tomorrow(ctx)
+				if err != nil {
+					Say("天気情報の取得に失敗しました: " + err.Error())
+				} else {
+					Say(msg)
+				}
+			} else if strings.Contains(input, "今日の天気") {
 				msg, err := weather.Today(ctx)
 				if err != nil {
 					Say("天気情報の取得に失敗しました: " + err.Error())
