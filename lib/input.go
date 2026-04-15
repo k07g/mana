@@ -6,12 +6,13 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/k07g/mana/lib/greet"
 	"github.com/k07g/mana/lib/weather"
 )
 
-func Input(ctx context.Context, version string) error {
+func Input(ctx context.Context, version string, startTime time.Time) error {
 	scanner := bufio.NewScanner(os.Stdin)
 	done := make(chan struct{})
 
@@ -34,6 +35,10 @@ func Input(ctx context.Context, version string) error {
 
 			if strings.Contains(input, "バージョン") {
 				Say("バージョン: " + version)
+			}
+
+			if strings.Contains(input, "会話時間") || strings.Contains(input, "どのくらい話した") || strings.Contains(input, "何分話した") {
+				Say(ElapsedMessage(startTime))
 			}
 
 			if strings.Contains(input, "明日の天気") {

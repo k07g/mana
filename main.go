@@ -26,13 +26,15 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
+	startTime := time.Now()
+
 	lib.Say("おはよー")
 
-	if msg, ok := lib.BedtimeMessage(time.Now().Hour()); ok {
+	if msg, ok := lib.BedtimeMessage(startTime.Hour()); ok {
 		lib.Say(msg)
 	}
 
-	if err := lib.Input(ctx, version); err != nil {
+	if err := lib.Input(ctx, version, startTime); err != nil {
 		fmt.Println("入力処理に失敗しました:", err)
 	}
 }
