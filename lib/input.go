@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/k07g/mana/lib/greet"
+	"github.com/k07g/mana/lib/news"
 	"github.com/k07g/mana/lib/weather"
 )
 
@@ -39,6 +40,15 @@ func Input(ctx context.Context, version string, startTime time.Time) error {
 
 			if strings.Contains(input, "会話時間") || strings.Contains(input, "どのくらい話した") || strings.Contains(input, "何分話した") {
 				Say(ElapsedMessage(startTime))
+			}
+
+			if strings.Contains(input, "今日のニュース") || strings.Contains(input, "ニュース教えて") {
+				msg, err := news.Today(ctx)
+				if err != nil {
+					Say("ニュースの取得に失敗しました: " + err.Error())
+				} else {
+					Say(msg)
+				}
 			}
 
 			if strings.Contains(input, "明日の天気") {
